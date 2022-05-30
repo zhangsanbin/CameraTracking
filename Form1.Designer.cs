@@ -50,10 +50,10 @@ namespace CameraTracking
             this.chkboxMesafeKordinati = new System.Windows.Forms.CheckBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.rdbtnElleBelirleme = new System.Windows.Forms.RadioButton();
-            this.rdiobtnYesil = new System.Windows.Forms.RadioButton();
-            this.rdiobtnKirmizi = new System.Windows.Forms.RadioButton();
-            this.rdiobtnMavi = new System.Windows.Forms.RadioButton();
+            this.rdbtnUserColor = new System.Windows.Forms.RadioButton();
+            this.rdiobtnG = new System.Windows.Forms.RadioButton();
+            this.rdiobtnR = new System.Windows.Forms.RadioButton();
+            this.rdiobtnB = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rdiobtnGeoSekil = new System.Windows.Forms.RadioButton();
             this.rdiobtnTekCisimTakibi = new System.Windows.Forms.RadioButton();
@@ -289,10 +289,10 @@ namespace CameraTracking
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox3.Controls.Add(this.rdbtnElleBelirleme);
-            this.groupBox3.Controls.Add(this.rdiobtnYesil);
-            this.groupBox3.Controls.Add(this.rdiobtnKirmizi);
-            this.groupBox3.Controls.Add(this.rdiobtnMavi);
+            this.groupBox3.Controls.Add(this.rdbtnUserColor);
+            this.groupBox3.Controls.Add(this.rdiobtnG);
+            this.groupBox3.Controls.Add(this.rdiobtnR);
+            this.groupBox3.Controls.Add(this.rdiobtnB);
             this.groupBox3.Location = new System.Drawing.Point(387, 553);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(93, 105);
@@ -300,49 +300,49 @@ namespace CameraTracking
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "颜色";
             // 
-            // rdbtnElleBelirleme
+            // rdbtnUserColor
             // 
-            this.rdbtnElleBelirleme.AutoSize = true;
-            this.rdbtnElleBelirleme.Location = new System.Drawing.Point(8, 81);
-            this.rdbtnElleBelirleme.Name = "rdbtnElleBelirleme";
-            this.rdbtnElleBelirleme.Size = new System.Drawing.Size(71, 16);
-            this.rdbtnElleBelirleme.TabIndex = 24;
-            this.rdbtnElleBelirleme.TabStop = true;
-            this.rdbtnElleBelirleme.Text = "人工测定";
-            this.rdbtnElleBelirleme.UseVisualStyleBackColor = true;
+            this.rdbtnUserColor.AutoSize = true;
+            this.rdbtnUserColor.Location = new System.Drawing.Point(8, 81);
+            this.rdbtnUserColor.Name = "rdbtnUserColor";
+            this.rdbtnUserColor.Size = new System.Drawing.Size(71, 16);
+            this.rdbtnUserColor.TabIndex = 24;
+            this.rdbtnUserColor.TabStop = true;
+            this.rdbtnUserColor.Text = "人工测定";
+            this.rdbtnUserColor.UseVisualStyleBackColor = true;
             // 
-            // rdiobtnYesil
+            // rdiobtnG
             // 
-            this.rdiobtnYesil.AutoSize = true;
-            this.rdiobtnYesil.Location = new System.Drawing.Point(8, 39);
-            this.rdiobtnYesil.Name = "rdiobtnYesil";
-            this.rdiobtnYesil.Size = new System.Drawing.Size(71, 16);
-            this.rdiobtnYesil.TabIndex = 8;
-            this.rdiobtnYesil.TabStop = true;
-            this.rdiobtnYesil.Text = "绿色 (G)";
-            this.rdiobtnYesil.UseVisualStyleBackColor = true;
+            this.rdiobtnG.AutoSize = true;
+            this.rdiobtnG.Location = new System.Drawing.Point(8, 39);
+            this.rdiobtnG.Name = "rdiobtnG";
+            this.rdiobtnG.Size = new System.Drawing.Size(71, 16);
+            this.rdiobtnG.TabIndex = 8;
+            this.rdiobtnG.TabStop = true;
+            this.rdiobtnG.Text = "绿色 (G)";
+            this.rdiobtnG.UseVisualStyleBackColor = true;
             // 
-            // rdiobtnKirmizi
+            // rdiobtnR
             // 
-            this.rdiobtnKirmizi.AutoSize = true;
-            this.rdiobtnKirmizi.Location = new System.Drawing.Point(8, 18);
-            this.rdiobtnKirmizi.Name = "rdiobtnKirmizi";
-            this.rdiobtnKirmizi.Size = new System.Drawing.Size(65, 16);
-            this.rdiobtnKirmizi.TabIndex = 6;
-            this.rdiobtnKirmizi.TabStop = true;
-            this.rdiobtnKirmizi.Text = "红色(R)";
-            this.rdiobtnKirmizi.UseVisualStyleBackColor = true;
+            this.rdiobtnR.AutoSize = true;
+            this.rdiobtnR.Location = new System.Drawing.Point(8, 18);
+            this.rdiobtnR.Name = "rdiobtnR";
+            this.rdiobtnR.Size = new System.Drawing.Size(65, 16);
+            this.rdiobtnR.TabIndex = 6;
+            this.rdiobtnR.TabStop = true;
+            this.rdiobtnR.Text = "红色(R)";
+            this.rdiobtnR.UseVisualStyleBackColor = true;
             // 
-            // rdiobtnMavi
+            // rdiobtnB
             // 
-            this.rdiobtnMavi.AutoSize = true;
-            this.rdiobtnMavi.Location = new System.Drawing.Point(8, 60);
-            this.rdiobtnMavi.Name = "rdiobtnMavi";
-            this.rdiobtnMavi.Size = new System.Drawing.Size(71, 16);
-            this.rdiobtnMavi.TabIndex = 7;
-            this.rdiobtnMavi.TabStop = true;
-            this.rdiobtnMavi.Text = "蓝色 (B)";
-            this.rdiobtnMavi.UseVisualStyleBackColor = true;
+            this.rdiobtnB.AutoSize = true;
+            this.rdiobtnB.Location = new System.Drawing.Point(8, 60);
+            this.rdiobtnB.Name = "rdiobtnB";
+            this.rdiobtnB.Size = new System.Drawing.Size(71, 16);
+            this.rdiobtnB.TabIndex = 7;
+            this.rdiobtnB.TabStop = true;
+            this.rdiobtnB.Text = "蓝色 (B)";
+            this.rdiobtnB.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -470,6 +470,7 @@ namespace CameraTracking
             // textColorValueRGB
             // 
             this.textColorValueRGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textColorValueRGB.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textColorValueRGB.Location = new System.Drawing.Point(603, 574);
             this.textColorValueRGB.Name = "textColorValueRGB";
             this.textColorValueRGB.Size = new System.Drawing.Size(24, 21);
@@ -545,10 +546,10 @@ namespace CameraTracking
         private System.Windows.Forms.CheckBox chkboxMesafeKordinati;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton rdbtnElleBelirleme;
-        private System.Windows.Forms.RadioButton rdiobtnYesil;
-        private System.Windows.Forms.RadioButton rdiobtnKirmizi;
-        private System.Windows.Forms.RadioButton rdiobtnMavi;
+        private System.Windows.Forms.RadioButton rdbtnUserColor;
+        private System.Windows.Forms.RadioButton rdiobtnG;
+        private System.Windows.Forms.RadioButton rdiobtnR;
+        private System.Windows.Forms.RadioButton rdiobtnB;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton rdiobtnGeoSekil;
         private System.Windows.Forms.RadioButton rdiobtnTekCisimTakibi;

@@ -70,7 +70,7 @@ namespace CameraTracking
 
 
 
-            if (rdiobtnKirmizi.Checked)
+            if (rdiobtnR.Checked)
             {
 
                 // create filter
@@ -86,7 +86,7 @@ namespace CameraTracking
 
             }
 
-            if (rdiobtnMavi.Checked)
+            if (rdiobtnB.Checked)
             {
 
                 // create filter
@@ -100,7 +100,7 @@ namespace CameraTracking
                 nesnebul(image1);
 
             }
-            if (rdiobtnYesil.Checked)
+            if (rdiobtnG.Checked)
             {
 
                 // create filter
@@ -118,7 +118,7 @@ namespace CameraTracking
             }
 
 
-            if (rdbtnElleBelirleme.Checked)
+            if (rdbtnUserColor.Checked)
             {
 
                 // create filter
@@ -180,7 +180,7 @@ namespace CameraTracking
                         //Cizdirilen Dikdörtgenin Koordinatlari aliniyor.
                         int objectX = objectRect.X + (objectRect.Width / 2);
                         int objectY = objectRect.Y + (objectRect.Height / 2);
-                        //  g.DrawString(objectX.ToString() + "X" + objectY.ToString(), new Font("Arial", 12), Brushes.Red, new System.Drawing.Point(250, 1));
+                        // g.DrawString(objectX.ToString() + "X" + objectY.ToString(), new Font("Arial", 12), Brushes.Red, new System.Drawing.Point(250, 1));
                         g.Dispose();
 
                         if (chkKoordinatiGoster.Checked)
@@ -450,6 +450,7 @@ namespace CameraTracking
         {
             Cursor = Cursors.Cross;
             PickingColor = true;
+            rdbtnUserColor.Checked = true;
         }
     }
 }
