@@ -389,14 +389,14 @@ namespace CameraTracking
         {
             G = trackBar2.Value;
             textColorValueRGB.BackColor = Color.FromArgb(R, G, B);
-            lbR.Text = G.ToString();
+            lbG.Text = G.ToString();
         }
 
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
             B = trackBar3.Value;
             textColorValueRGB.BackColor = Color.FromArgb(R, G, B);
-            lbR.Text = B.ToString();
+            lbB.Text = B.ToString();
         }
 
         private void button3_Click(object sender, EventArgs e)
