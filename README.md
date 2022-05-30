@@ -1,4 +1,4 @@
-# CameraTracking
+﻿# CameraTracking
 Tracking to a USB camera with AForge framework.
 
 
@@ -7,3 +7,5 @@ Tracking to a USB camera with AForge framework.
 ![图片](1.JPG)
 
 ![图片](2.JPG)
+
+![图片](3.JPG)
