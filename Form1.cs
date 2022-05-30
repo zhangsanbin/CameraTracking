@@ -381,16 +381,22 @@ namespace CameraTracking
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             R = trackBar1.Value;
+            textColorValueRGB.BackColor = Color.FromArgb(R, G, B);
+            lbR.Text = R.ToString();
         }
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
             G = trackBar2.Value;
+            textColorValueRGB.BackColor = Color.FromArgb(R, G, B);
+            lbR.Text = G.ToString();
         }
 
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
             B = trackBar3.Value;
+            textColorValueRGB.BackColor = Color.FromArgb(R, G, B);
+            lbR.Text = B.ToString();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -403,6 +409,47 @@ namespace CameraTracking
             pictureBox1.Image.Dispose();
 
             Application.Exit();
+        }
+
+        bool PickingColor = true; 
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            // 取色器
+            if (e.Button == MouseButtons.Left)
+            {
+                if (PickingColor) 
+                {
+                    int x = e.X;
+                    int y = e.Y;
+
+                    using (Bitmap bmp = pictureBox1.Image as Bitmap)
+                    {
+                        Color pixelColor = bmp.GetPixel(x, y);
+                        byte alpha = pixelColor.A;
+                        byte red = pixelColor.R;
+                        byte green = pixelColor.G;
+                        byte blue = pixelColor.B;
+
+                        trackBar1.Value = red;
+                        trackBar2.Value = green;
+                        trackBar3.Value = blue;
+
+                        B = blue;
+                        G = green;
+                        R = red;
+
+                        textColorValueRGB.BackColor = Color.FromArgb(R, G, B);
+                    }
+                    PickingColor = false;
+                    Cursor = Cursors.Arrow;
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Cross;
+            PickingColor = true;
         }
     }
 }

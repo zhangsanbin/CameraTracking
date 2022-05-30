@@ -35,12 +35,9 @@ namespace CameraTracking
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.chkKoordinatiGoster = new System.Windows.Forms.CheckBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lbB = new System.Windows.Forms.Label();
+            this.lbG = new System.Windows.Forms.Label();
+            this.lbR = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -67,6 +64,8 @@ namespace CameraTracking
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.textColorValueRGB = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -117,6 +116,7 @@ namespace CameraTracking
             this.pictureBox1.Size = new System.Drawing.Size(640, 480);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             // 
             // chkKoordinatiGoster
             // 
@@ -138,71 +138,41 @@ namespace CameraTracking
             this.richTextBox1.TabIndex = 28;
             this.richTextBox1.Text = "";
             // 
-            // label11
+            // lbB
             // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(557, 651);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(11, 12);
-            this.label11.TabIndex = 50;
-            this.label11.Text = "0";
+            this.lbB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbB.AutoSize = true;
+            this.lbB.Location = new System.Drawing.Point(557, 651);
+            this.lbB.Name = "lbB";
+            this.lbB.Size = new System.Drawing.Size(11, 12);
+            this.lbB.TabIndex = 50;
+            this.lbB.Text = "0";
             // 
-            // label10
+            // lbG
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(522, 651);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(11, 12);
-            this.label10.TabIndex = 49;
-            this.label10.Text = "0";
+            this.lbG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbG.AutoSize = true;
+            this.lbG.Location = new System.Drawing.Point(522, 651);
+            this.lbG.Name = "lbG";
+            this.lbG.Size = new System.Drawing.Size(11, 12);
+            this.lbG.TabIndex = 49;
+            this.lbG.Text = "0";
             // 
-            // label9
+            // lbR
             // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(490, 651);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(11, 12);
-            this.label9.TabIndex = 48;
-            this.label9.Text = "0";
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(551, 514);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(23, 12);
-            this.label8.TabIndex = 47;
-            this.label8.Text = "255";
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(516, 514);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(23, 12);
-            this.label7.TabIndex = 46;
-            this.label7.Text = "255";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(483, 514);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(23, 12);
-            this.label6.TabIndex = 45;
-            this.label6.Text = "255";
+            this.lbR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbR.AutoSize = true;
+            this.lbR.Location = new System.Drawing.Point(490, 651);
+            this.lbR.Name = "lbR";
+            this.lbR.Size = new System.Drawing.Size(11, 12);
+            this.lbR.TabIndex = 48;
+            this.lbR.Text = "0";
             // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(555, 501);
+            this.label5.Location = new System.Drawing.Point(557, 516);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(11, 12);
             this.label5.TabIndex = 44;
@@ -212,7 +182,7 @@ namespace CameraTracking
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(519, 501);
+            this.label4.Location = new System.Drawing.Point(524, 516);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(11, 12);
             this.label4.TabIndex = 43;
@@ -222,7 +192,7 @@ namespace CameraTracking
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(486, 501);
+            this.label3.Location = new System.Drawing.Point(490, 516);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(11, 12);
             this.label3.TabIndex = 42;
@@ -266,14 +236,14 @@ namespace CameraTracking
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.richTextBox3);
             this.groupBox4.Controls.Add(this.chkboxMesafeOlcer);
             this.groupBox4.Controls.Add(this.chkboxMesafeKordinati);
             this.groupBox4.Controls.Add(this.richTextBox2);
             this.groupBox4.Controls.Add(this.chkKoordinatiGoster);
             this.groupBox4.Controls.Add(this.richTextBox1);
-            this.groupBox4.Location = new System.Drawing.Point(588, 505);
+            this.groupBox4.Location = new System.Drawing.Point(912, 504);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(392, 154);
             this.groupBox4.TabIndex = 38;
@@ -480,11 +450,30 @@ namespace CameraTracking
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(1174, 637);
+            this.label1.Location = new System.Drawing.Point(596, 629);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(127, 22);
             this.label1.TabIndex = 51;
             this.label1.Text = "@zhangsanbin";
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button4.Location = new System.Drawing.Point(603, 601);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(108, 23);
+            this.button4.TabIndex = 52;
+            this.button4.Text = "取色器";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // textColorValueRGB
+            // 
+            this.textColorValueRGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textColorValueRGB.Location = new System.Drawing.Point(603, 574);
+            this.textColorValueRGB.Name = "textColorValueRGB";
+            this.textColorValueRGB.Size = new System.Drawing.Size(24, 21);
+            this.textColorValueRGB.TabIndex = 53;
             // 
             // Form1
             // 
@@ -492,13 +481,12 @@ namespace CameraTracking
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1316, 671);
+            this.Controls.Add(this.textColorValueRGB);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lbB);
+            this.Controls.Add(this.lbG);
+            this.Controls.Add(this.lbR);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -542,12 +530,9 @@ namespace CameraTracking
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox chkKoordinatiGoster;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbB;
+        private System.Windows.Forms.Label lbG;
+        private System.Windows.Forms.Label lbR;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -574,6 +559,8 @@ namespace CameraTracking
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox textColorValueRGB;
     }
 }
 
