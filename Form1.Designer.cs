@@ -461,7 +461,7 @@ namespace CameraTracking
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button4.Location = new System.Drawing.Point(603, 601);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(108, 23);
+            this.button4.Size = new System.Drawing.Size(65, 23);
             this.button4.TabIndex = 52;
             this.button4.Text = "取色器";
             this.button4.UseVisualStyleBackColor = true;
@@ -471,7 +471,7 @@ namespace CameraTracking
             // 
             this.textColorValueRGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textColorValueRGB.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.textColorValueRGB.Location = new System.Drawing.Point(603, 574);
+            this.textColorValueRGB.Location = new System.Drawing.Point(674, 602);
             this.textColorValueRGB.Name = "textColorValueRGB";
             this.textColorValueRGB.Size = new System.Drawing.Size(24, 21);
             this.textColorValueRGB.TabIndex = 53;

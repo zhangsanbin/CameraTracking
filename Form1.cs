@@ -94,8 +94,6 @@ namespace CameraTracking
             Bitmap image1 = (Bitmap)eventArgs.Frame.Clone();
             pictureBox1.Image = image;
 
-
-
             if (rdiobtnR.Checked)
             {
                 // create filter
@@ -135,7 +133,6 @@ namespace CameraTracking
                 nesnebul(image1);
             }
 
-
             if (rdbtnUserColor.Checked)
             {
                 // create filter
@@ -148,9 +145,6 @@ namespace CameraTracking
 
                 nesnebul(image1);
             }
-
-
-
         }
         public void nesnebul(Bitmap image)
         {
@@ -457,6 +451,7 @@ namespace CameraTracking
                     }
                     PickingColor = false;
                     Cursor = Cursors.Arrow;
+                    rdbtnUserColor.Checked = true;
                 }
             }
         }
@@ -465,7 +460,6 @@ namespace CameraTracking
         {
             Cursor = Cursors.Cross;
             PickingColor = true;
-            rdbtnUserColor.Checked = true;
         }
     }
 }
