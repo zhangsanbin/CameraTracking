@@ -53,15 +53,6 @@ namespace CameraTracking
             }
         }
 
-        private void Form1_Closing(object sender, CancelEventArgs e)
-        {
-            // signal to stop
-            if (videoSource != null && videoSource.IsRunning)
-            {
-                videoSource.SignalToStop();
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex >= 0)
@@ -93,12 +84,12 @@ namespace CameraTracking
                 //    return cap;
                 if (cap.FrameSize.Height == 480)
                     return cap;
-                if (cap.FrameSize.Height == 640)
-                    return cap;
-                if (cap.FrameSize.Height == 1080)
-                    return cap;
-                if (cap.FrameSize.Width == 1920)
-                    return cap;
+                //if (cap.FrameSize.Height == 640)
+                //    return cap;
+                //if (cap.FrameSize.Height == 1080)
+                //    return cap;
+                //if (cap.FrameSize.Width == 1920)
+                //    return cap;
             }
             return device.VideoCapabilities.Last();
         }
@@ -505,6 +496,15 @@ namespace CameraTracking
         private void timer1_Tick(object sender, EventArgs e)
         {
             button5_Click(sender,e);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // signal to stop
+            if (videoSource != null && videoSource.IsRunning)
+            {
+                videoSource.SignalToStop();
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
