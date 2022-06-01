@@ -511,6 +511,7 @@ namespace CameraTracking
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button5.Enabled = false;
             this.button5.Location = new System.Drawing.Point(603, 571);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(95, 23);
@@ -533,6 +534,7 @@ namespace CameraTracking
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Location = new System.Drawing.Point(605, 549);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(96, 16);

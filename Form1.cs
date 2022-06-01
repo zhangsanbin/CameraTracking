@@ -71,6 +71,7 @@ namespace CameraTracking
                 videoSource.VideoResolution = selectResolution(videoSource);// ** set resolution 2.2.5.0 Version **
                 videoSource.Start();
                 button2.Enabled = true;
+                button5.Enabled = true;
             } else {
                 MessageBox.Show("Choose a video source", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -486,6 +487,7 @@ namespace CameraTracking
                 pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox3.Image = System.Drawing.Image.FromFile(templateMatchingFileName);
                 templateMatchingMark = true;
+                checkBox1.Enabled = true;
             }
         }
 
@@ -507,7 +509,12 @@ namespace CameraTracking
 
         private void button5_Click(object sender, EventArgs e)
         {
-            // 模板匹配          
+            // 模板匹配
+            if (templateMatchingFileName == null)
+            {
+                pictureBox3_DoubleClick(sender, e);
+                return;
+            }
             if (templateMatchingMark) {
                 templateMatchingMark = false;
                 ExhaustiveTemplateMatching templateMatching = new ExhaustiveTemplateMatching(0.7f);
