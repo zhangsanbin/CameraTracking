@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using AForge;//v2.2.4.0
+using AForge;//v2.2.5.0
 using AForge.Imaging.Filters;
 using AForge.Imaging;
 using AForge.Video;
@@ -52,14 +52,40 @@ namespace CameraTracking
         {
             Finalvideo = new VideoCaptureDevice(VideoCapTureDevices[comboBox1.SelectedIndex].MonikerString);
             Finalvideo.NewFrame += new NewFrameEventHandler(Finalvideo_NewFrame);
-            Finalvideo.DesiredFrameRate = 20;//saniyede kaç görüntü alsın istiyorsanız. FPS
-            Finalvideo.DesiredFrameSize = new Size(640, 480);//görüntü boyutları //320/240
-            // AForge.Video.DirectShow.VideoCaptureDevice.VideoResolution'
-            //Finalvideo.VideoResolution;
+            //Finalvideo.DesiredFrameRate = 20;// FPS The property is obsolete. Setting this property does not have any effect.
+
+            Finalvideo.VideoResolution = selectResolution(Finalvideo);// ** set resolution 2.2.5.0 Version **
 
             Finalvideo.Start();
             button2.Enabled = true;
         }
+
+        /// <summary>
+        /// 设置视频分辨率
+        /// </summary>
+        /// <param name="device"></param>
+        /// <returns>兼容列表</returns>
+        private static VideoCapabilities selectResolution(VideoCaptureDevice device)
+        {
+            foreach (var cap in device.VideoCapabilities)
+            {
+                // 120/240 兼容性设置，暂不用
+                //if (cap.FrameSize.Height == 120)
+                //    return cap;
+                //if (cap.FrameSize.Height == 240)
+                //    return cap;
+                if (cap.FrameSize.Height == 480)
+                    return cap;
+                if (cap.FrameSize.Height == 640)
+                    return cap;
+                if (cap.FrameSize.Height == 1080)
+                    return cap;
+                if (cap.FrameSize.Width == 1920)
+                    return cap;
+            }
+            return device.VideoCapabilities.Last();
+        }
+
 
         void Finalvideo_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
@@ -72,7 +98,6 @@ namespace CameraTracking
 
             if (rdiobtnR.Checked)
             {
-
                 // create filter
                 EuclideanColorFiltering filter = new EuclideanColorFiltering();
                 // set center colol and radius
@@ -81,14 +106,11 @@ namespace CameraTracking
                 // apply the filter
                 filter.ApplyInPlace(image1);
 
-
                 nesnebul(image1);
-
             }
 
             if (rdiobtnB.Checked)
             {
-
                 // create filter
                 EuclideanColorFiltering filter = new EuclideanColorFiltering();
                 // set center color and radius
@@ -98,11 +120,10 @@ namespace CameraTracking
                 filter.ApplyInPlace(image1);
 
                 nesnebul(image1);
-
             }
+
             if (rdiobtnG.Checked)
             {
-
                 // create filter
                 EuclideanColorFiltering filter = new EuclideanColorFiltering();
                 // set center color and radius
@@ -112,15 +133,11 @@ namespace CameraTracking
                 filter.ApplyInPlace(image1);
 
                 nesnebul(image1);
-
-
-
             }
 
 
             if (rdbtnUserColor.Checked)
             {
-
                 // create filter
                 EuclideanColorFiltering filter = new EuclideanColorFiltering();
                 // set center colol and radius
@@ -130,7 +147,6 @@ namespace CameraTracking
                 filter.ApplyInPlace(image1);
 
                 nesnebul(image1);
-
             }
 
 
@@ -159,7 +175,6 @@ namespace CameraTracking
             Rectangle[] rects = blobCounter.GetObjectsRectangles();
             Blob[] blobs = blobCounter.GetObjectsInformation();
             pictureBox2.Image = image;
-
 
 
             if (rdiobtnTekCisimTakibi.Checked)
