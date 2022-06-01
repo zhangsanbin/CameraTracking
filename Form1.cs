@@ -24,40 +24,55 @@ namespace CameraTracking
     public partial class Form1 : Form
     {
         private FilterInfoCollection VideoCapTureDevices;
-        private VideoCaptureDevice Finalvideo;
+        private VideoCaptureDevice videoSource;
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        int R; //Trackbarın değişkeneleri
+        int R; 
         int G;
         int B;
 
         private void Form1_Load(object sender, EventArgs e)
         {
             VideoCapTureDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            foreach (FilterInfo VideoCaptureDevice in VideoCapTureDevices)
+            foreach (FilterInfo videoDevice in VideoCapTureDevices)
             {
-
-                comboBox1.Items.Add(VideoCaptureDevice.Name);
-
+                comboBox1.Items.Add(videoDevice.Name);
             }
+            if (comboBox1.Items.Count > 0)
+            {
+                comboBox1.SelectedIndex = 0;
+            }
+            else {
+                MessageBox.Show("No video sources found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                button1.Enabled = false;
+            }
+        }
 
-            comboBox1.SelectedIndex = 0;
+        private void Form1_Closing(object sender, CancelEventArgs e)
+        {
+            // signal to stop
+            if (videoSource != null && videoSource.IsRunning)
+            {
+                videoSource.SignalToStop();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Finalvideo = new VideoCaptureDevice(VideoCapTureDevices[comboBox1.SelectedIndex].MonikerString);
-            Finalvideo.NewFrame += new NewFrameEventHandler(Finalvideo_NewFrame);
-            //Finalvideo.DesiredFrameRate = 20;// FPS The property is obsolete. Setting this property does not have any effect.
-
-            Finalvideo.VideoResolution = selectResolution(Finalvideo);// ** set resolution 2.2.5.0 Version **
-
-            Finalvideo.Start();
-            button2.Enabled = true;
+            if (comboBox1.SelectedIndex >= 0)
+            {
+                videoSource = new VideoCaptureDevice(VideoCapTureDevices[comboBox1.SelectedIndex].MonikerString);
+                videoSource.NewFrame += new NewFrameEventHandler(Finalvideo_NewFrame);
+                videoSource.VideoResolution = selectResolution(videoSource);// ** set resolution 2.2.5.0 Version **
+                videoSource.Start();
+                button2.Enabled = true;
+            } else {
+                MessageBox.Show("Choose a video source", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         /// <summary>
@@ -87,11 +102,11 @@ namespace CameraTracking
         }
 
 
+        private Bitmap image, image1, image2;
         void Finalvideo_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-
-            Bitmap image = (Bitmap)eventArgs.Frame.Clone();
-            Bitmap image1 = (Bitmap)eventArgs.Frame.Clone();
+            image = (Bitmap)eventArgs.Frame.Clone();
+            image1 = (Bitmap)eventArgs.Frame.Clone();
             pictureBox1.Image = image;
 
             if (rdiobtnR.Checked)
@@ -380,9 +395,9 @@ namespace CameraTracking
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (Finalvideo.IsRunning)
-            {
-                Finalvideo.Stop();
+            videoSource.SignalToStop();//videoSource.Stop();
+            if (videoSource != null && videoSource.IsRunning && pictureBox1.Image != null)
+            {                
                 pictureBox1.Image.Dispose();
             }
         }
@@ -410,9 +425,10 @@ namespace CameraTracking
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (Finalvideo.IsRunning)
+            // signal to stop
+            if (videoSource != null && videoSource.IsRunning)
             {
-                Finalvideo.Stop();
+                videoSource.SignalToStop();
             }
 
             pictureBox1.Image.Dispose();
@@ -460,6 +476,61 @@ namespace CameraTracking
         {
             Cursor = Cursors.Cross;
             PickingColor = true;
+        }
+
+        private bool templateMatchingMark;
+        private string templateMatchingFileName;
+        private void pictureBox3_DoubleClick(object sender, EventArgs e)
+        {
+            // 设置匹配图像模板
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "图片|*.jpg*|PNG图像|*.png|所有文件|*.*";
+            openFileDialog.RestoreDirectory = true;
+            openFileDialog.FilterIndex = 1;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                templateMatchingFileName = openFileDialog.FileName;
+                pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox3.Image = System.Drawing.Image.FromFile(templateMatchingFileName);
+                templateMatchingMark = true;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            // 模板匹配
+            if (templateMatchingMark) {
+                ExhaustiveTemplateMatching templateMatching = new ExhaustiveTemplateMatching(0.9f);
+                image2 = ReadImageFile(templateMatchingFileName);
+                var compare = templateMatching.ProcessImage(image, image2);
+                if (compare.Length > 0) { 
+                    label2.Text = "相似度：" + compare[0].Similarity.ToString();
+                }                    
+            }
+
+        }
+
+        /// <summary>
+        /// 通过 FileStream 来打开文件，实现不锁定 Image 文件，不影响其他用户访问此文件
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static Bitmap ReadImageFile(string path)
+        {
+            if (System.IO.File.Exists(path))
+            {            
+                System.IO.FileStream fs = System.IO.File.OpenRead(path);
+                int filelength = 0;
+                filelength = (int)fs.Length;
+                Byte[] image = new Byte[filelength];
+                fs.Read(image, 0, filelength); 
+                System.Drawing.Image result = System.Drawing.Image.FromStream(fs);
+                fs.Close();
+                Bitmap bitmap = new Bitmap(result);
+                return bitmap;
+            }
+            return null;
         }
     }
 }
