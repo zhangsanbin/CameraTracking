@@ -102,11 +102,16 @@ namespace CameraTracking
         }
 
 
-        private Bitmap image, image1, image2;
+        private Bitmap image, image1, image2, image3;
         void Finalvideo_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
             image = (Bitmap)eventArgs.Frame.Clone();
             image1 = (Bitmap)eventArgs.Frame.Clone();
+            if (templateMatchingMark)
+            {
+                image2 = (Bitmap)eventArgs.Frame.Clone();
+            }                
+
             pictureBox1.Image = image;
 
             if (rdiobtnR.Checked)
@@ -485,7 +490,7 @@ namespace CameraTracking
             // 设置匹配图像模板
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = "c:\\";
-            openFileDialog.Filter = "图片|*.jpg*|PNG图像|*.png|所有文件|*.*";
+            openFileDialog.Filter = "PNG图片|*.png*|JPG图像|*.jpg|所有文件|*.*";
             openFileDialog.RestoreDirectory = true;
             openFileDialog.FilterIndex = 1;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -497,17 +502,39 @@ namespace CameraTracking
             }
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                timer1.Enabled = true;
+            }
+            else { 
+                timer1.Enabled = false;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            button5_Click(sender,e);
+        }
+
         private void button5_Click(object sender, EventArgs e)
         {
-            // 模板匹配
+            // 模板匹配          
             if (templateMatchingMark) {
-                ExhaustiveTemplateMatching templateMatching = new ExhaustiveTemplateMatching(0.9f);
-                image2 = ReadImageFile(templateMatchingFileName);
-                var compare = templateMatching.ProcessImage(image, image2);
-                if (compare.Length > 0) { 
-                    label2.Text = "相似度：" + compare[0].Similarity.ToString();
-                }                    
+                templateMatchingMark = false;
+                ExhaustiveTemplateMatching templateMatching = new ExhaustiveTemplateMatching(0.7f);
+                image3 = ConvertToFormat(ReadImageFile(templateMatchingFileName),System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+                var compare = templateMatching.ProcessImage(image2, image3);
+                if (compare.Length > 0)
+                {
+                    label2.Text = "相似度：" + Math.Round((compare[0].Similarity * 100),2).ToString() + "%";
+                }
+                else {
+                    label2.Text = "相似度：低于70%";
+                }
             }
+            templateMatchingMark = true;
 
         }
 
@@ -532,5 +559,22 @@ namespace CameraTracking
             }
             return null;
         }
+
+        /// <summary>
+        /// 图像格式转换
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="format">System.Drawing.Imaging.PixelFormat.Format24bppRgb</param>
+        /// <returns></returns>
+        public static Bitmap ConvertToFormat(System.Drawing.Image image, PixelFormat format)
+        {
+            Bitmap copy = new Bitmap(image.Width, image.Height, format);
+            using (Graphics gr = Graphics.FromImage(copy))
+            {
+                gr.DrawImage(image, new Rectangle(0, 0, copy.Width, copy.Height));
+            }
+            return copy;
+        }
+
     }
 }
