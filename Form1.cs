@@ -17,7 +17,8 @@ using AForge.Math.Geometry;
 using System.Drawing.Imaging;
 
 //Remove ambiguousness between AForge.Image and System.Drawing.Image
-using Point = System.Drawing.Point; //Remove ambiguousness between AForge.Point and System.Drawing.Point
+//Remove ambiguousness between AForge.Point and System.Drawing.Point
+using Point = System.Drawing.Point; 
 
 namespace CameraTracking
 {
@@ -116,12 +117,12 @@ namespace CameraTracking
 
             if (rdiobtnR.Checked)
             {
-                // create filter
+                // 创建过滤器
                 EuclideanColorFiltering filter = new EuclideanColorFiltering();
-                // set center colol and radius
+                // 设置中心颜色和半径
                 filter.CenterColor = new RGB(Color.FromArgb(215, 0, 0));
                 filter.Radius = 100;
-                // apply the filter
+                // 应用过滤器
                 filter.ApplyInPlace(image1);
 
                 nesnebul(image1);
@@ -129,12 +130,12 @@ namespace CameraTracking
 
             if (rdiobtnB.Checked)
             {
-                // create filter
+                // 创建过滤器
                 EuclideanColorFiltering filter = new EuclideanColorFiltering();
-                // set center color and radius
+                // 设置中心颜色和半径
                 filter.CenterColor = new RGB(Color.FromArgb(30, 144, 255));
                 filter.Radius = 100;
-                // apply the filter
+                // 应用过滤器
                 filter.ApplyInPlace(image1);
 
                 nesnebul(image1);
@@ -142,12 +143,12 @@ namespace CameraTracking
 
             if (rdiobtnG.Checked)
             {
-                // create filter
+                // 创建过滤器
                 EuclideanColorFiltering filter = new EuclideanColorFiltering();
-                // set center color and radius
+                // 设置中心颜色和半径
                 filter.CenterColor = new RGB(Color.FromArgb(0, 215, 0));
                 filter.Radius = 100;
-                // apply the filter
+                // 应用过滤器
                 filter.ApplyInPlace(image1);
 
                 nesnebul(image1);
@@ -155,12 +156,12 @@ namespace CameraTracking
 
             if (rdbtnUserColor.Checked)
             {
-                // create filter
+                // 创建过滤器
                 EuclideanColorFiltering filter = new EuclideanColorFiltering();
                 // set center colol and radius
                 filter.CenterColor = new RGB(Color.FromArgb(R, G, B));
                 filter.Radius = 100;
-                // apply the filter
+                // 应用过滤器
                 filter.ApplyInPlace(image1);
 
                 nesnebul(image1);
@@ -178,10 +179,10 @@ namespace CameraTracking
             //Bitmap griImage = griFiltre.Apply(image);
 
             BitmapData objectsData = image.LockBits(new Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, image.PixelFormat);
-            // grayscaling
+            // 灰度
             Grayscale grayscaleFilter = new Grayscale(0.2125, 0.7154, 0.0721);
             UnmanagedImage grayImage = grayscaleFilter.Apply(new UnmanagedImage(objectsData));
-            // unlock image
+            // 解锁图像
             image.UnlockBits(objectsData);
 
 
@@ -193,7 +194,7 @@ namespace CameraTracking
 
             if (rdiobtnTekCisimTakibi.Checked)
             {
-                //Tekli cisim Takibi Single Tracking--------
+                //单个对象跟踪--------
 
                 foreach (Rectangle recs in rects)
                 {
@@ -206,7 +207,7 @@ namespace CameraTracking
                         {
                             g.DrawRectangle(pen, objectRect);
                         }
-                        //Cizdirilen Dikdörtgenin Koordinatlari aliniyor.
+                        // 获取轮廓矩形的坐标。
                         int objectX = objectRect.X + (objectRect.Width / 2);
                         int objectY = objectRect.Y + (objectRect.Height / 2);
                         // g.DrawString(objectX.ToString() + "X" + objectY.ToString(), new Font("Arial", 12), Brushes.Red, new System.Drawing.Point(250, 1));
@@ -227,7 +228,7 @@ namespace CameraTracking
 
             if (rdiobtnCokCisimTakibi.Checked)
             {
-                //Multi tracking Çoklu cisim Takibi-------
+                //多目标跟踪-------
 
                 for (int i = 0; rects.Length > i; i++)
                 {
@@ -239,7 +240,7 @@ namespace CameraTracking
                         g.DrawRectangle(pen, objectRect);
                         g.DrawString((i + 1).ToString(), new Font("Arial", 12), Brushes.Red, objectRect);
                     }
-                    //Cizdirilen Dikdörtgenin Koordinatlari aliniyor.
+                    //获取轮廓矩形的坐标。
                     int objectX = objectRect.X + (objectRect.Width / 2);
                     int objectY = objectRect.Y + (objectRect.Height / 2);
                     //  g.DrawString(objectX.ToString() + "X" + objectY.ToString(), new Font("Arial", 12), Brushes.Red, new System.Drawing.Point(250, 1));
@@ -247,7 +248,6 @@ namespace CameraTracking
 
                     if (chkboxMesafeOlcer.Checked)
                     {
-
                         if (rects.Length > 1)
                         {
                             for (int j = 0; j < rects.Length - 1; j++)
@@ -262,7 +262,6 @@ namespace CameraTracking
                                 //g.DrawLine(Pens.Red, rects[j].Location, rects[j + 1].Location);
                                 //g.DrawLine(Pens.Blue, rects[0].Location, rects[rects.Length - 1].Location);
                                 g.DrawLine(Pens.Red, ilkx, ilky, ikix, ikiy);
-
                             }
                         }
 
@@ -304,19 +303,9 @@ namespace CameraTracking
                                     richTextBox3.Text = distance.ToString() + "\n" + richTextBox3.Text + "\n"; ;
                                 });
                             }
-
                         }
-
                     }
-
-
                     g.Dispose();
-
-                    //     this.Invoke((MethodInvoker)delegate
-                    //{
-                    //    richTextBox1.Text = objectRect.Location.ToString() + "\n" + richTextBox1.Text + "\n"; ;
-                    //});
-
                 }
             }
 
@@ -328,11 +317,11 @@ namespace CameraTracking
                 SimpleShapeChecker shapeChecker = new SimpleShapeChecker();
 
                 Graphics g = pictureBox1.CreateGraphics();
-                Pen yellowPen = new Pen(Color.Yellow, 2); // circles
-                Pen redPen = new Pen(Color.Red, 2);       // quadrilateral
-                Pen brownPen = new Pen(Color.Brown, 2);   // quadrilateral with known sub-type
-                Pen greenPen = new Pen(Color.Green, 2);   // known triangle
-                Pen bluePen = new Pen(Color.Blue, 2);     // triangle
+                Pen yellowPen = new Pen(Color.Yellow, 2); // 边界
+                Pen redPen = new Pen(Color.Red, 2);       // 四边形
+                Pen brownPen = new Pen(Color.Brown, 2);   // 具有已知子类型的四边形
+                Pen greenPen = new Pen(Color.Green, 2);   // 已知三角形
+                Pen bluePen = new Pen(Color.Blue, 2);     // 三角形
 
                 for (int i = 0, n = blobs.Length; i < n; i++)
                 {
@@ -341,7 +330,7 @@ namespace CameraTracking
                     AForge.Point center;
                     float radius;
 
-                    // is circle ?
+                    // 圈？
                     if (shapeChecker.IsCircle(edgePoints, out center, out radius))
                     {
                         g.DrawEllipse(yellowPen,
@@ -352,10 +341,10 @@ namespace CameraTracking
                     {
                         List<IntPoint> corners;
 
-                        // is triangle or quadrilateral
+                        // 是三角形 或 四边形
                         if (shapeChecker.IsConvexPolygon(edgePoints, out corners))
                         {
-                            // get sub-type
+                            // 获取子类型
                             PolygonSubType subType = shapeChecker.CheckPolygonSubType(corners);
 
                             Pen pen;
@@ -380,8 +369,6 @@ namespace CameraTracking
                 bluePen.Dispose();
                 brownPen.Dispose();
                 g.Dispose();
-
-
             }
         }
 
