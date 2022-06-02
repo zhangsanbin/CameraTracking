@@ -95,10 +95,10 @@ namespace CameraTracking
         }
 
 
-        private Bitmap image, image1, image2, image3;
+        private Bitmap image1, image2, image3;
         void Finalvideo_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            image = (Bitmap)eventArgs.Frame.Clone();
+            Bitmap image = (Bitmap)eventArgs.Frame.Clone();
             image1 = (Bitmap)eventArgs.Frame.Clone();
             if (templateMatchingMark)
             {
@@ -565,12 +565,11 @@ namespace CameraTracking
                 if (compare.Length > 0)
                 {
                     label2.Text = "相似度：" + Math.Round((compare[0].Similarity * 100),2).ToString() + "%";
-                }
-                else {
+                } else {
                     label2.Text = "相似度：低于70%";
                 }
 
-                if (!rdbtnUserColor.Checked && !rdbtnUserColor.Checked && !rdbtnUserColor.Checked && !rdbtnUserColor.Checked) {
+                if (!rdiobtnR.Checked && !rdiobtnG.Checked && !rdiobtnB.Checked && !rdbtnUserColor.Checked) {
                     pictureBox2.Image = image2;
                 }
                 pictureBox3.Image = image3;
