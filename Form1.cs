@@ -517,9 +517,35 @@ namespace CameraTracking
             }
             if (templateMatchingMark) {
                 templateMatchingMark = false;
+                // 匹配精度设置大于70%会给出列表
                 ExhaustiveTemplateMatching templateMatching = new ExhaustiveTemplateMatching(0.7f);
-                image3 = ConvertToFormat(ReadImageFile(templateMatchingFileName),System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+                image3 = ConvertToFormat(ReadImageFile(templateMatchingFileName), System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+
+                // 锁定图像到系统内存
+                BitmapData objectsData2 = image2.LockBits(new Rectangle(0, 0, image2.Width, image2.Height), ImageLockMode.ReadOnly, image2.PixelFormat);
+                // 灰度化
+                UnmanagedImage grayscale2 = new Grayscale(0.2125, 0.7154, 0.0721).Apply(new UnmanagedImage(objectsData2));
+                // 二值化
+                UnmanagedImage binarization2 = new Threshold(50).Apply(new UnmanagedImage(objectsData2));
+                // 降噪点
+                UnmanagedImage denoise2 = new BlobsFiltering(1, 1, image2.Width, image2.Height).Apply(new UnmanagedImage(objectsData2));
+                // 解锁图像
+                image2.UnlockBits(objectsData2);
+
+                // 锁定图像到系统内存
+                BitmapData objectsData3 = image3.LockBits(new Rectangle(0, 0, image3.Width, image3.Height), ImageLockMode.ReadOnly, image3.PixelFormat);
+                // 灰度化
+                UnmanagedImage grayscale3 = new Grayscale(0.2125, 0.7154, 0.0721).Apply(new UnmanagedImage(objectsData3));
+                // 二值化
+                UnmanagedImage binarization3 = new Threshold(50).Apply(new UnmanagedImage(objectsData3));
+                // 降噪点
+                UnmanagedImage denoise3 = new BlobsFiltering(1, 1, image3.Width, image3.Height).Apply(new UnmanagedImage(objectsData3));
+                // 解锁图像
+                image3.UnlockBits(objectsData3);
+
+                // 处理图像以查找与指定模板的匹配项
                 var compare = templateMatching.ProcessImage(image2, image3);
+
                 if (compare.Length > 0)
                 {
                     label2.Text = "相似度：" + Math.Round((compare[0].Similarity * 100),2).ToString() + "%";
@@ -527,6 +553,7 @@ namespace CameraTracking
                 else {
                     label2.Text = "相似度：低于70%";
                 }
+                pictureBox3.Image = image3;
             }
             templateMatchingMark = true;
 
