@@ -495,7 +495,10 @@ namespace CameraTracking
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            button5_Click(sender,e);
+            if (templateMatchingMark)
+            {
+                button5_Click(sender, e);
+            }                
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -513,6 +516,7 @@ namespace CameraTracking
             if (templateMatchingFileName == null)
             {
                 pictureBox3_DoubleClick(sender, e);
+
                 return;
             }
             if (templateMatchingMark) {
@@ -521,40 +525,20 @@ namespace CameraTracking
                 ExhaustiveTemplateMatching templateMatching = new ExhaustiveTemplateMatching(0.7f);
                 image3 = ConvertToFormat(ReadImageFile(templateMatchingFileName), System.Drawing.Imaging.PixelFormat.Format24bppRgb);
 
-                //// 锁定图像到系统内存
-                //BitmapData objectsData2 = image2.LockBits(new Rectangle(0, 0, image2.Width, image2.Height), ImageLockMode.ReadOnly, image2.PixelFormat);
-                //// 灰度化
-                //UnmanagedImage grayscale2 = new Grayscale(0.2125, 0.7154, 0.0721).Apply(new UnmanagedImage(objectsData2));
-                //// 二值化
-                //UnmanagedImage binarization2 = new Threshold(50).Apply(new UnmanagedImage(objectsData2));
-                //// 降噪点
-                //UnmanagedImage denoise2 = new BlobsFiltering(1, 1, image2.Width, image2.Height).Apply(new UnmanagedImage(objectsData2));
-                //// 解锁图像
-                //image2.UnlockBits(objectsData2);
-
-                //// 锁定图像到系统内存
-                //BitmapData objectsData3 = image3.LockBits(new Rectangle(0, 0, image3.Width, image3.Height), ImageLockMode.ReadOnly, image3.PixelFormat);
-                //// 灰度化
-                //UnmanagedImage grayscale3 = new Grayscale(0.2125, 0.7154, 0.0721).Apply(new UnmanagedImage(objectsData3));
-                //// 二值化
-                //UnmanagedImage binarization3 = new Threshold(50).Apply(new UnmanagedImage(objectsData3));
-                //// 降噪点
-                //UnmanagedImage denoise3 = new BlobsFiltering(1, 1, image3.Width, image3.Height).Apply(new UnmanagedImage(objectsData3));
-                //// 解锁图像
-                //image3.UnlockBits(objectsData3);
-
                 // 灰度化
                 Grayscale grayscale = new Grayscale(0.2125, 0.7154, 0.0721);
                 // 二值化
-                Threshold binarization = new Threshold(50);
+                Threshold binarization = new Threshold(85);
                 // 降噪点
-                BlobsFiltering denoise = new BlobsFiltering();
+                BlobsFiltering denoise2 = new BlobsFiltering(5,5, image2.Width, image2.Height);
+                BlobsFiltering denoise3 = new BlobsFiltering(5,5, image3.Width, image3.Height);
+                // 应用图像处理
                 image2 = grayscale.Apply(image2);
                 image3 = grayscale.Apply(image3);
                 image2 = binarization.Apply(image2);
                 image3 = binarization.Apply(image3);
-                image2 = denoise.Apply(image2);
-                image3 = denoise.Apply(image3);
+                image2 = denoise2.Apply(image2);
+                image3 = denoise3.Apply(image3);
 
                 // 处理图像以查找与指定模板的匹配项
                 var compare = templateMatching.ProcessImage(image2, image3);
@@ -566,10 +550,13 @@ namespace CameraTracking
                 else {
                     label2.Text = "相似度：低于70%";
                 }
+
+                if (!rdbtnUserColor.Checked && !rdbtnUserColor.Checked && !rdbtnUserColor.Checked && !rdbtnUserColor.Checked) {
+                    pictureBox2.Image = image2;
+                }
                 pictureBox3.Image = image3;
             }
             templateMatchingMark = true;
-
         }
 
         /// <summary>
