@@ -11,3 +11,5 @@ Tracking to a USB camera with AForge framework.
 ![图片](3.JPG)
 
 ![图片](5.JPG)
+
+![图片](Test.png)

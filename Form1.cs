@@ -379,6 +379,7 @@ namespace CameraTracking
 
         private void button2_Click(object sender, EventArgs e)
         {
+            templateMatchingMark = false;
             videoSource.SignalToStop();//videoSource.Stop();
             if (videoSource != null && videoSource.IsRunning && pictureBox1.Image != null)
             {                
@@ -476,9 +477,25 @@ namespace CameraTracking
             {
                 templateMatchingFileName = openFileDialog.FileName;
                 pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox3.Image = System.Drawing.Image.FromFile(templateMatchingFileName);
+
+                image3 = ConvertToFormat(ReadImageFile(templateMatchingFileName), System.Drawing.Imaging.PixelFormat.Format24bppRgb);             
+                // 灰度化
+                Grayscale grayscale = new Grayscale(0.2125, 0.7154, 0.0721);
+                // 二值化
+                Threshold binarization = new Threshold(85);
+                // 降噪点
+                BlobsFiltering denoise3 = new BlobsFiltering(5, 5, image3.Width, image3.Height);
+                // 应用图像处理
+                image3 = grayscale.Apply(image3);
+                image3 = binarization.Apply(image3);
+                image3 = denoise3.Apply(image3);
+
+                pictureBox3.Image = ReadImageFile(templateMatchingFileName);
                 templateMatchingMark = true;
                 checkBox1.Enabled = true;
+                if (videoSource != null && videoSource.IsRunning) {
+                    checkBox1.Checked = true;
+                }
             }
         }
 
@@ -523,22 +540,25 @@ namespace CameraTracking
                 templateMatchingMark = false;
                 // 匹配精度设置大于70%会给出列表
                 ExhaustiveTemplateMatching templateMatching = new ExhaustiveTemplateMatching(0.7f);
-                image3 = ConvertToFormat(ReadImageFile(templateMatchingFileName), System.Drawing.Imaging.PixelFormat.Format24bppRgb);
 
                 // 灰度化
                 Grayscale grayscale = new Grayscale(0.2125, 0.7154, 0.0721);
                 // 二值化
                 Threshold binarization = new Threshold(85);
                 // 降噪点
-                BlobsFiltering denoise2 = new BlobsFiltering(5,5, image2.Width, image2.Height);
-                BlobsFiltering denoise3 = new BlobsFiltering(5,5, image3.Width, image3.Height);
+                BlobsFiltering denoise2 = new BlobsFiltering(5, 5, image2.Width, image2.Height);
                 // 应用图像处理
-                image2 = grayscale.Apply(image2);
-                image3 = grayscale.Apply(image3);
-                image2 = binarization.Apply(image2);
-                image3 = binarization.Apply(image3);
-                image2 = denoise2.Apply(image2);
-                image3 = denoise3.Apply(image3);
+                try
+                {
+                    image2 = grayscale.Apply(image2);
+                    image2 = binarization.Apply(image2);
+                    image2 = denoise2.Apply(image2);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
 
                 // 处理图像以查找与指定模板的匹配项
                 var compare = templateMatching.ProcessImage(image2, image3);
@@ -555,8 +575,10 @@ namespace CameraTracking
                     pictureBox2.Image = image2;
                 }
                 pictureBox3.Image = image3;
+                templateMatchingMark = true;
             }
-            templateMatchingMark = true;
+            checkBox1.Checked = true;
+            button5.Enabled = false;
         }
 
         /// <summary>
