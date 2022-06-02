@@ -556,8 +556,7 @@ namespace CameraTracking
                 }
                 catch (Exception)
                 {
-
-                    throw;
+                    //throw;
                 }
 
                 // 处理图像以查找与指定模板的匹配项
