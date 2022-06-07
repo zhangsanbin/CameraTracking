@@ -387,6 +387,7 @@ namespace CameraTracking
             this.rdiobtnTekCisimTakibi.TabStop = true;
             this.rdiobtnTekCisimTakibi.Text = "单个对象跟踪";
             this.rdiobtnTekCisimTakibi.UseVisualStyleBackColor = true;
+            this.rdiobtnTekCisimTakibi.CheckedChanged += new System.EventHandler(this.rdiobtnTekCisimTakibi_CheckedChanged);
             // 
             // rdiobtnCokCisimTakibi
             // 

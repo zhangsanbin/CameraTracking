@@ -579,6 +579,13 @@ namespace CameraTracking
             button5.Enabled = false;
         }
 
+        private void rdiobtnTekCisimTakibi_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdiobtnTekCisimTakibi.Checked) {
+                chkKoordinatiGoster.Checked = true;
+            }
+        }
+
         /// <summary>
         /// 通过 FileStream 来打开文件，实现不锁定 Image 文件，不影响其他用户访问此文件
         /// </summary>
