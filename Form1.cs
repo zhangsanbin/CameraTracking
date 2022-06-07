@@ -102,8 +102,35 @@ namespace CameraTracking
             image1 = (Bitmap)eventArgs.Frame.Clone();
             if (templateMatchingMark)
             {
+                templateMatchingMark = false;
                 image2 = (Bitmap)eventArgs.Frame.Clone();
-            }                
+                if (image2 != null)
+                {
+                    image2.RotateFlip(RotateFlipType.RotateNoneFlipX);//设置镜像
+                }
+                templateMatchingMark = true;
+            }
+
+            if (image != null)
+            {
+                //顺时针旋转90度     RotateFlipType.Rotate90FlipNone
+                //逆时针旋转90度     RotateFlipType.Rotate270FlipNone
+                //水平翻转           RotateFlipType.Rotate180FlipY
+                //垂直翻转           RotateFlipType.Rotate180FlipX
+                //按X轴翻转          RotateFlipType.RotateNoneFlipX 
+                //按Y轴翻转          RotateFlipType.RotateNoneFlipY
+                image.RotateFlip(RotateFlipType.RotateNoneFlipX);//设置镜像
+            }
+            if (image1 != null)
+            {
+                //顺时针旋转90度     RotateFlipType.Rotate90FlipNone
+                //逆时针旋转90度     RotateFlipType.Rotate270FlipNone
+                //水平翻转           RotateFlipType.Rotate180FlipY
+                //垂直翻转           RotateFlipType.Rotate180FlipX
+                //按X轴翻转          RotateFlipType.RotateNoneFlipX 
+                //按Y轴翻转          RotateFlipType.RotateNoneFlipY
+                image1.RotateFlip(RotateFlipType.RotateNoneFlipX);//设置镜像
+            }
 
             pictureBox1.Image = image;
 
@@ -584,6 +611,42 @@ namespace CameraTracking
             if (rdiobtnTekCisimTakibi.Checked) {
                 chkKoordinatiGoster.Checked = true;
             }
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            string tempFileName = System.IO.Path.GetTempFileName().Replace(".tmp",".jpg");
+            pictureBox1.Image.Save(tempFileName);
+
+            templateMatchingFileName = tempFileName;
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+
+            image3 = ConvertToFormat(ReadImageFile(templateMatchingFileName), System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+
+            // 灰度化
+            Grayscale grayscale = new Grayscale(0.2125, 0.7154, 0.0721);
+            // 二值化
+            Threshold binarization = new Threshold(85);
+            // 降噪点
+            BlobsFiltering denoise3 = new BlobsFiltering(5, 5, image3.Width, image3.Height);
+            // 应用图像处理
+            image3 = grayscale.Apply(image3);
+            image3 = binarization.Apply(image3);
+            image3 = denoise3.Apply(image3);
+
+            pictureBox3.Image = ReadImageFile(templateMatchingFileName);
+            templateMatchingMark = true;
+            checkBox1.Enabled = true;
+            if (videoSource != null && videoSource.IsRunning)
+            {
+                checkBox1.Checked = true;
+            }
+
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            button3_Click(sender, e);
         }
 
         /// <summary>
