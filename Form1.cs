@@ -63,6 +63,7 @@ namespace CameraTracking
                 videoSource.Start();
                 button2.Enabled = true;
                 button5.Enabled = true;
+                trackBar4.Enabled = true;
             } else {
                 MessageBox.Show("Choose a video source", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -647,6 +648,12 @@ namespace CameraTracking
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
             button3_Click(sender, e);
+        }
+
+        private void trackBar4_Scroll(object sender, EventArgs e)
+        {
+            //videoSource.SetCameraProperty(CameraControlProperty.Exposure, Convert.ToInt32(trackBar4.Value), CameraControlFlags.Manual);
+            videoSource.DisplayPropertyPage(IntPtr.Zero);
         }
 
         /// <summary>
