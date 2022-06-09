@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using AForge;//v2.2.5.0
@@ -18,7 +14,7 @@ using System.Drawing.Imaging;
 
 //Remove ambiguousness between AForge.Image and System.Drawing.Image
 //Remove ambiguousness between AForge.Point and System.Drawing.Point
-using Point = System.Drawing.Point; 
+using Point = System.Drawing.Point;
 
 namespace CameraTracking
 {
