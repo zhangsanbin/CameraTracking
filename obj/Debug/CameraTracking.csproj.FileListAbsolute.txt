@@ -78,4 +78,3 @@ E:\Github\CameraTracking\obj\Debug\CameraTracking.csproj.CoreCompileInputs.cache
 E:\Github\CameraTracking\obj\Debug\CameraTracking.exe
 E:\Github\CameraTracking\obj\Debug\CameraTracking.pdb
 E:\Github\CameraTracking\obj\Debug\CameraTracking.csproj.CopyComplete
-D:\GitHub\CameraTracking\obj\Debug\CameraTracking.csproj.AssemblyReference.cache
