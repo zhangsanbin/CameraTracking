@@ -213,7 +213,6 @@ namespace CameraTracking
             if (rdiobtnTekCisimTakibi.Checked)
             {
                 //单个对象跟踪--------
-
                 foreach (Rectangle recs in rects)
                 {
                     if (rects.Length > 0)
@@ -247,7 +246,6 @@ namespace CameraTracking
             if (rdiobtnCokCisimTakibi.Checked)
             {
                 //多目标跟踪-------
-
                 for (int i = 0; rects.Length > i; i++)
                 {
                     Rectangle objectRect = rects[i];
