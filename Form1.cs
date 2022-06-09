@@ -46,6 +46,8 @@ namespace CameraTracking
             if (comboBox1.Items.Count > 0)
             {
                 comboBox1.SelectedIndex = 0;
+
+                button1_Click(sender,e);//自动开启摄像头
             }
             else {
                 MessageBox.Show("No video sources found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
