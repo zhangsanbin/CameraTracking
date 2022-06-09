@@ -47,7 +47,7 @@ namespace CameraTracking
             {
                 comboBox1.SelectedIndex = 0;
 
-                button1_Click(sender,e);//自动开启摄像头
+                //button1_Click(sender,e);//自动开启摄像头
             }
             else {
                 MessageBox.Show("No video sources found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -451,7 +451,7 @@ namespace CameraTracking
             Application.Exit();
         }
 
-        bool PickingColor = true; 
+        bool PickingColor = false; 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             // 取色器
