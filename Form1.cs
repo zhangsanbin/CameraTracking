@@ -122,12 +122,6 @@ namespace CameraTracking
             }
             if (image1 != null)
             {
-                //顺时针旋转90度     RotateFlipType.Rotate90FlipNone
-                //逆时针旋转90度     RotateFlipType.Rotate270FlipNone
-                //水平翻转           RotateFlipType.Rotate180FlipY
-                //垂直翻转           RotateFlipType.Rotate180FlipX
-                //按X轴翻转          RotateFlipType.RotateNoneFlipX 
-                //按Y轴翻转          RotateFlipType.RotateNoneFlipY
                 image1.RotateFlip(RotateFlipType.RotateNoneFlipX);//设置镜像
             }
 
