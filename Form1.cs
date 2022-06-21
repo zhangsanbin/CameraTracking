@@ -43,7 +43,7 @@ namespace CameraTracking
             {
                 comboBox1.SelectedIndex = 0;
 
-                //button1_Click(sender,e);//自动开启摄像头
+                button1_Click(sender, e);//自动开启摄像头
             }
             else {
                 MessageBox.Show("No video sources found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -59,6 +59,7 @@ namespace CameraTracking
                 videoSource.NewFrame += new NewFrameEventHandler(Finalvideo_NewFrame);
                 videoSource.VideoResolution = selectResolution(videoSource);// ** set resolution 2.2.5.0 Version **
                 videoSource.Start();
+                button1.Enabled = false;
                 button2.Enabled = true;
                 button5.Enabled = true;
                 trackBar4.Enabled = true;
@@ -403,6 +404,7 @@ namespace CameraTracking
             {                
                 pictureBox1.Image.Dispose();
             }
+            button1.Enabled = true;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
